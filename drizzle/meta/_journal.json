@@ -1,0 +1,20 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1772026386163,
+      "tag": "0000_steep_valeria_richards",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1772027308548,
+      "tag": "0001_ancient_famine",
+      "breakpoints": true
+    }
+  ]
+}
