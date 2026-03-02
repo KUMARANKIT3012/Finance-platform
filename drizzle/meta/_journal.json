@@ -15,6 +15,13 @@
       "when": 1772027308548,
       "tag": "0001_ancient_famine",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1772369798043,
+      "tag": "0002_milky_la_nuit",
+      "breakpoints": true
     }
   ]
 }
