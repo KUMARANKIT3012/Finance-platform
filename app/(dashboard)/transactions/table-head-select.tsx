@@ -19,7 +19,6 @@ type Props = {
 const options = [
   "amount",
   "payee",
-  "notes",
   "date",
 ];
 
@@ -29,10 +28,10 @@ export const TableHeadSelect = ({
   selectedColumns,
   onChange,
 }: Props) => {
-    const currentSelect = selectedColumns[`column_${columnIndex}`];
+    const currentSelection = selectedColumns[`column_${columnIndex}`];
   return (
     <Select
-        value={currentSelect || ""}
+        value={currentSelection || ""}
         onValueChange={(value) => onChange(columnIndex, value)}
     >
         <SelectTrigger
@@ -45,16 +44,21 @@ export const TableHeadSelect = ({
         </SelectTrigger>
         <SelectContent>
             <SelectItem value="skip">Skip</SelectItem>
-            {options.map((option, index) => (
-            <SelectItem
-                key={index}
-                value={option}
-                disabled={disabled}
-                className="capitalize"
-            >
-                {option}
-            </SelectItem>
-            ))}
+            {options.map((option, index) => {
+              const disabled =
+              Object.values(selectedColumns).includes(option) &&
+              selectedColumns[`column_${columnIndex}`] !== option;
+              return (
+              <SelectItem
+                  key={index}
+                  value={option}
+                  disabled={disabled}
+                  className="capitalize"
+              >
+                  {option}
+              </SelectItem>
+              )
+            })}
         </SelectContent>
     </Select>
   );
