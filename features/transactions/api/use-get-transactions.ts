@@ -9,7 +9,8 @@ export const useGetTransactions = () => {
   const params = useSearchParams();
   const from = params.get("from") || "";
   const to = params.get("to") || "";
-  const accountId = params.get("accountId") || "";
+  const rawAccountId = params.get("accountId");
+  const accountId = rawAccountId === "" ? undefined : rawAccountId;
 
   const query = useQuery({
     // TODO: check if the params are needed in the key 
@@ -19,7 +20,7 @@ export const useGetTransactions = () => {
         query: {
           from,
           to,
-          accountId,
+          ...(accountId ? { accountId } : {})
         }
       });
 
