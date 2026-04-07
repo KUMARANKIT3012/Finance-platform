@@ -52,10 +52,10 @@ const app = new Hono()
           .leftJoin(categories, eq(transactions.categoryId, categories.id))
           .where(
             and(
-              accountId ? eq(transactions.accountId, accountId) : undefined,
+              ...(accountId ? [eq(transactions.accountId, accountId)] : []),
               eq(accounts.userId, auth.userId),
-              gte(transactions.date, startDate),
-              lte(transactions.date, endDate),
+              ...(from ? [gte(transactions.date, startDate)] : []),
+              ...(to ? [lte(transactions.date, endDate)] : []),
             )
           )
           .orderBy(desc(transactions.date))
