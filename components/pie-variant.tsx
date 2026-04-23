@@ -45,7 +45,7 @@ export const PieVariant = ({ data }: Props) => {
                         {entry.value}
                       </span>
                       <span className="text-sm">
-                        {formatPercentage(entry.payload.percent * 100)}
+                        ₹{entry.payload.value.toLocaleString("en-IN")}
                       </span>
                     </div>
                   </li>
