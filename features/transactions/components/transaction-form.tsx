@@ -34,7 +34,8 @@ const apiSchema = insertTransactionSchema.omit({
   id: true,
 });
 
-type FormValues = z.infer<typeof formSchema>;
+type FormValues = z.output<typeof formSchema>;
+type FormInput = z.input<typeof formSchema>;
 type ApiFormValues = z.input<typeof apiSchema>;
 
 type Props = {
@@ -60,7 +61,7 @@ export const TransactionForm = ({
   onCreateAccount,
   onCreateCategory,
 }: Props) => {
-  const form = useForm<FormValues>({
+  const form = useForm<FormValues, any, FormInput>({
     resolver: zodResolver(formSchema),
     defaultValues: defaultValues,
   });
