@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { Header } from "@/components/header";
 import { NewAccountSheet } from "@/features/accounts/components/new-account-sheet";
 import { EditAccountSheet } from "@/features/accounts/components/edit-account-sheet";
