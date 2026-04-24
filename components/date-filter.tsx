@@ -11,16 +11,13 @@ import {
   useSearchParams
 } from "next/navigation";
 
-import { useGetSummary } from "@/features/summary/api/use-get-summary";
-
-import { cn, formatDateRange } from "@/lib/utils"
+import { formatDateRange } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-//   PopoverClose,
 } from "@/components/ui/popover";
 
 export const DateFilter = () => {
@@ -40,9 +37,8 @@ export const DateFilter = () => {
     to: to ? new Date(to) : defaultTo,
   };
 
-  const [date, setDate] = useState<DateRange | undefined>(
-    paramState
-  );
+  const [date, setDate] = useState<DateRange | undefined>(paramState);
+  const [isOpen, setIsOpen] = useState(false);
 
   const pushToUrl = (dateRange: DateRange | undefined) => {
     const query = {
@@ -54,7 +50,7 @@ export const DateFilter = () => {
     const url = qs.stringifyUrl({
       url: pathname,
       query,
-    }, { skipEmptyString: true, skipNull: true, });
+    }, { skipEmptyString: true, skipNull: true });
 
     router.push(url);
   };
@@ -62,10 +58,11 @@ export const DateFilter = () => {
   const onReset = () => {
     setDate(undefined);
     pushToUrl(undefined);
+    setIsOpen(false);
   };
 
   return (
-    <Popover>
+    <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
         <Button
           disabled={false}
@@ -87,27 +84,34 @@ export const DateFilter = () => {
           mode="range"
           defaultMonth={date?.from}
           selected={date}
-          onSelect={setDate}
+          onSelect={(range) => {
+            setDate(range);
+            if (range?.from && range?.to) {
+              pushToUrl(range);
+              setIsOpen(false);
+            }
+          }}
           numberOfMonths={2}
         />
         <div className="p-4 flex flex-col gap-y-2">
-            <Button
-                onClick={onReset}
-                disabled={!date?.from || !date?.to}
-                className="w-full"
-                variant="outline"
-            >
-                Reset
-            </Button>
-
-            <Button
-                onClick={() => pushToUrl(date)}
-                disabled={!date?.from || !date?.to}
-                className="w-full"
-            >
-                Apply
-            </Button>
-    </div>
+          <Button
+            onClick={onReset}
+            className="w-full"
+            variant="outline"
+          >
+            Reset
+          </Button>
+          <Button
+            onClick={() => {
+              pushToUrl(date);
+              setIsOpen(false);
+            }}
+            disabled={!date?.from || !date?.to}
+            className="w-full"
+          >
+            Apply
+          </Button>
+        </div>
       </PopoverContent>
     </Popover>
   );  
