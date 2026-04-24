@@ -22,7 +22,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { convertAmountToMiliunits } from "@/lib/utils";
 
 const formSchema = z.object({
-  date: z.coerce.date(),
+  date: z.date(),
   accountId: z.string(),
   categoryId: z.string().nullable().optional(),
   payee: z.string(),
@@ -34,8 +34,7 @@ const apiSchema = insertTransactionSchema.omit({
   id: true,
 });
 
-type FormValues = z.output<typeof formSchema>;
-type FormInput = z.input<typeof formSchema>;
+type FormValues = z.infer<typeof formSchema>;
 type ApiFormValues = z.input<typeof apiSchema>;
 
 type Props = {
@@ -61,7 +60,7 @@ export const TransactionForm = ({
   onCreateAccount,
   onCreateCategory,
 }: Props) => {
-  const form = useForm<FormValues, any, FormInput>({
+  const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: defaultValues,
   });
