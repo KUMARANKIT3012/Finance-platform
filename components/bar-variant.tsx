@@ -2,6 +2,7 @@ import { format } from "date-fns";
 import { 
   Tooltip, 
   XAxis, 
+  YAxis,
   ResponsiveContainer, 
   BarChart, 
   Bar, 
@@ -21,7 +22,7 @@ type Props = {
 export const BarVariant = ({ data }: Props) => {
   return (
     <ResponsiveContainer width="100%" height={350}>
-      <BarChart data={data}>
+      <BarChart data={data} barSize={40}>  {/* ✅ use data directly, no formattedData */}
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
           axisLine={false}
@@ -31,17 +32,15 @@ export const BarVariant = ({ data }: Props) => {
           style={{ fontSize: "12px" }}
           tickMargin={16}
         />
+        <YAxis
+          axisLine={false}
+          tickLine={false}
+          style={{ fontSize: "12px" }}
+          tickFormatter={(value) => `₹${value}`} 
+        />
         <Tooltip content={<CustomTooltip />} />
-        <Bar
-          dataKey="income"
-          fill="#3b82f6"
-          className="drop-shadow-sm"
-        />
-        <Bar
-          dataKey="expenses"
-          fill="#f43f5e"
-          className="drop-shadow-sm"
-        />
+        <Bar dataKey="income" fill="#3b82f6" className="drop-shadow-sm" />
+        <Bar dataKey="expenses" fill="#f43f5e" className="drop-shadow-sm" />
       </BarChart>
     </ResponsiveContainer>
   );
