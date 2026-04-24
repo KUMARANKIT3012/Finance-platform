@@ -25,6 +25,8 @@ export const useBulkCreateTransactions = () => {
           queryKey: ["transactions"],
           exact: false,
         });
+        queryClient.invalidateQueries({ queryKey: ["summary"] });
+
 
     // TODO: Also invalidate summary 
 
