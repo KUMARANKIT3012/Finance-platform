@@ -5,16 +5,19 @@ import accounts from './accounts';
 import  transactions  from './transactions';
 import categories from './categories';
 import summary from './summary';
+import plaid from './plaid';
 
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 
 const app = new Hono().basePath('/api')
 
 const routes = app
+  .route("/plaid", plaid)
   .route("/summary", summary)
   .route("/accounts", accounts)
   .route("/categories", categories)
   .route("/transactions", transactions)
+
 
 
 export const GET = handle(app);
