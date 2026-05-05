@@ -27,13 +27,12 @@ export const useExchangePublicToken = () => {
       return await response.json();
     },
     onSuccess: () => {
-        toast.success("Public token exchanged successfully");
-        // TODO: Reinvalidate the following
-        // connected-bank
-        // summary
-        // transactions
-        // accounts
-        // categories
+      toast.success("Public token exchanged successfully");
+      queryClient.invalidateQueries({ queryKey: ["connected-bank"] })
+      queryClient.invalidateQueries({ queryKey: ["summary"] })
+      queryClient.invalidateQueries({ queryKey: ["transactions"] })
+      queryClient.invalidateQueries({ queryKey: ["accounts"] })
+      queryClient.invalidateQueries({ queryKey: ["categories"] })
     },
     onError: () => {
         toast.error("Failed to exchange public token");
