@@ -11,7 +11,7 @@ import {
 import { db } from "@/db/drizzle";
 import { setupLemon } from "@/lib/ls";
 import { subscriptions } from "@/db/schema";
-
+import { createClerkClient } from "@clerk/backend"; 
 setupLemon();
 
 const app = new Hono()
@@ -61,11 +61,19 @@ const app = new Hono()
         return c.json({ data: portalUrl });
       }
 
+       // ✅ Get user email from Clerk
+      const clerkClient = createClerkClient({ 
+        secretKey: process.env.CLERK_SECRET_KEY! 
+      });
+      const user = await clerkClient.users.getUser(auth.userId);
+      const email = user.emailAddresses[0]?.emailAddress;
+
       const checkout = await createCheckout(
         process.env.LEMONSQUEEZY_STORE_ID!,
         process.env.LEMONSQUEEZY_PRODUCT_ID!,
         {
           checkoutData: {
+            email: email,
             custom: {
               user_id: auth.userId,
             },
