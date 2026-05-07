@@ -10,6 +10,7 @@ import { accounts, categories, connectedBanks, transactions } from "@/db/schema"
 import { convertAmountToMiliunits } from "@/lib/utils";
 import { and, eq, isNotNull } from "drizzle-orm";
 
+
 const configuration = new Configuration({
   basePath: PlaidEnvironments.sandbox,
   baseOptions: {
