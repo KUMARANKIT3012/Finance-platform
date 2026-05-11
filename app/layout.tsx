@@ -5,6 +5,7 @@ import "./globals.css";
 import { QueryProviders } from "@/providers/query-provider";
 import { SheetProvider } from "@/providers/sheet-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { SubscriptionModal } from "@/features/subscriptions/components/subscription-modal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,6 +35,7 @@ export default function RootLayout({
       >
         <QueryProviders>
           <SheetProvider />
+          <SubscriptionModal />
           <Toaster />
 
         {children}

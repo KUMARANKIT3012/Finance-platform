@@ -13,11 +13,12 @@ export const UploadButton = ({ onUpload }: Props) => {
   const { CSVReader } = useCSVReader();
   const { shouldBlock, triggerPaywall} = usePaywall();
 
+
   if (shouldBlock) {
   return (
     <Button
       size="sm"
-      className="w-full lg:w-auto"
+      className="inline-flex items-center gap-2"
       onClick={triggerPaywall}
     >
       <Upload className="size-4 mr-2" />

@@ -1,3 +1,5 @@
+"use client";
+
 import { toast } from "sonner";
 import { InferResponseType } from "hono";
 import { useMutation } from "@tanstack/react-query";

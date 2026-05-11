@@ -8,6 +8,8 @@ export const usePaywall = () => {
     isLoading: isLoadingSubscription,
   } = useGetSubscription();
 
+  
+
   const shouldBlock = !subscription || subscription.status === "expired";
 
   return {
